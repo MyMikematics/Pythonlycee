@@ -1,0 +1,701 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Niveau0FormationLycee}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \# Eléments de programmation au lycée
+
+    \hypertarget{classe-de-seconde}{%
+\subsection{Classe de seconde :}\label{classe-de-seconde}}
+
+    Une consolidation des acquis du cycle 4 est proposée autour de deux
+idées essentielles :
+
+\begin{itemize}
+\tightlist
+\item
+  la notion de fonction ;
+\item
+  la programmation comme production d'un texte dans un langage
+  informatique.
+\end{itemize}
+
+Dans le cadre de cette activité, les élèves s'exercent à :
+
+\begin{itemize}
+\tightlist
+\item
+  décrire des algorithmes en langage naturel ou dans un langage de
+  programmation ;
+\item
+  en réaliser quelques-uns à l'aide d'un programme simple écrit dans un
+  langage de programmation textuel ;
+\item
+  interpréter, compléter ou modifier des algorithmes plus complexes.
+\end{itemize}
+
+    \hypertarget{variables-et-instructions-uxe9luxe9mentaires}{%
+\subsubsection{Variables et instructions
+élémentaires}\label{variables-et-instructions-uxe9luxe9mentaires}}
+
+    Connaissances : Variables informatiques de type entier, flottant, chaîne
+de caractère.
+
+Capacités associées : Choisir ou déterminer le type d'une variable
+(entier, flottant ou chaîne de caractères).
+
+    Exemple :
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}typage dnamique sous Python}
+        \PY{n}{a}\PY{o}{=}\PY{l+m+mi}{1}
+        \PY{n}{b}\PY{o}{=}\PY{n}{a}\PY{o}{/}\PY{l+m+mi}{3}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{b}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{quote}
+Le symbole d'affectation sous Python est donné par le signe =
+\end{quote}
+
+\begin{quote}
+Le test d'égalité se fait par le symbole ==
+\end{quote}
+
+    Tester les instructions suivantes :
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{a}\PY{o}{=}\PY{l+m+mi}{1}
+        \PY{n}{b}\PY{o}{=}\PY{l+m+mi}{4}
+        \PY{n}{b}\PY{o}{==}\PY{n}{a}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{a}\PY{o}{=}\PY{l+m+mi}{1}
+        \PY{n}{b}\PY{o}{=}\PY{l+m+mi}{4}
+        \PY{n}{b}\PY{o}{=}\PY{n}{a}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{b}\PY{p}{)}
+        \PY{n}{b}\PY{o}{==}\PY{n}{a}
+\end{Verbatim}
+
+    \begin{quote}
+Le type float (flottant) ne doit pas être confondu avec un type décimal
+ou réel an mathématiques (La représentation en base 2 des nombres
+décimaux peut conduire à certains écueils)
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}tester si le triangle de côtés 3, 4 et 5 est rectangle}
+        \PY{n}{a}\PY{o}{=}\PY{l+m+mi}{3}
+        \PY{n}{b}\PY{o}{=}\PY{l+m+mi}{4}
+        \PY{n}{c}\PY{o}{=}\PY{l+m+mi}{5}
+        \PY{n}{a}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{+}\PY{n}{b}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{==}\PY{n}{c}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}tester si le triangle de côtés 36, 15 et 39 est rectangle}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}tester si le triangle de côtés 3.6, 1.5 et 3.9 est rectangle}
+\end{Verbatim}
+
+    Correctif : voir plus loin dans la partie instruction conditionnelle
+
+    Connaissances : Affectation (notée ← en langage naturel).
+
+Capacités associées: Concevoir et écrire une instruction d'affectation,
+une séquence d'instructions, une instruction conditionnelle.
+
+    Connaissances : Séquence d'instructions.
+
+Capacités associées:Écrire une formule permettant un calcul combinant
+des variables.
+
+    On considère la fonction \(f\) définie par \(f(x)=x^2-4x+5\). Calculer
+les images de \(-5\), \(3\) et \(2020\) par \(f\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{a}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}
+        \PY{n}{f}\PY{o}{=}\PY{l+m+mi}{0}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{p}{)}
+\end{Verbatim}
+
+    Connaissances : Instruction conditionnelle.
+
+Capacités associées: Concevoir et écrire une instruction conditionnelle.
+
+    Compléter le programme suivant afin qu'il retourne la valeur absolue du
+nombre x
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{x}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{56}
+        \PY{k}{if} \PY{n}{x}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{la valeur absolue de }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ est égale à}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{la valeur absolue de }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ est égale à}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    Connaissances : Boucle bornée (for), boucle non bornée (while).
+
+Capacités associées: Programmer, dans des cas simples, une boucle
+bornée, une boucle non bornée.
+
+    Compléter le programme suivant afin qu'il calcule la somme des entiers
+de 0 à n
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{n}\PY{o}{=}\PY{l+m+mi}{5}
+        \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{0}
+        \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+            \PY{n}{s}\PY{o}{=}\PY{n}{s}\PY{o}{+}\PY{l+m+mi}{0}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+\end{Verbatim}
+
+    Modifier le programme suivant afin qu'il retourne le plus grand entier
+dont le carré est inférieur à l'entier \(n\) donné
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{n}\PY{o}{=}\PY{l+m+mi}{546}
+        \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{0}
+        \PY{k}{while} \PY{n}{k} \PY{o}{\PYZlt{}}\PY{o}{=}\PY{n}{n}\PY{p}{:}
+            \PY{n}{k}\PY{o}{=}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{1}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{k}\PY{p}{)}   
+\end{Verbatim}
+
+    Capacités : Dans des cas plus complexes : lire, comprendre, modifier ou
+compléter un algorithme ou un programme.
+
+    \begin{quote}
+Voir les fiches niveau 1 et niveau 2
+\end{quote}
+
+    \hypertarget{notion-de-fonction}{%
+\subsubsection{Notion de fonction}\label{notion-de-fonction}}
+
+    Connaissances :
+
+\begin{itemize}
+\tightlist
+\item
+  Fonctions à un ou plusieurs arguments.
+\item
+  Fonction renvoyant un nombre aléatoire.
+\item
+  Série statistique obtenue par la répétition de l'appel d'une telle
+  fonction.
+\end{itemize}
+
+Capacités associées
+
+\begin{itemize}
+\tightlist
+\item
+  Écrire des fonctions simples ; lire, comprendre, modifier, compléter
+  des fonctions plus complexes. Appeler une fonction.
+\end{itemize}
+
+    La fonction suivante affiche la valeur absolue du paramètre x.
+
+Modifier cette fonction afin qu'elle puisse être utilisée dans des
+calculs
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{ValAbs}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{n}{x}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{la valeur absolue de }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ est égale à }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{x}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{la valeur absolue de }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ est égale à }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{a}\PY{o}{=}\PY{l+m+mi}{5}
+        \PY{n}{b}\PY{o}{=}\PY{l+m+mi}{7}
+        \PY{n}{distance}\PY{o}{=}\PY{n}{ValAbs}\PY{p}{(}\PY{n}{a}\PY{o}{\PYZhy{}}\PY{n}{b}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{distance}\PY{p}{)}
+\end{Verbatim}
+
+    Lire et comprendre une fonction renvoyant une moyenne, un écart type.
+Aucune connaissance sur les listes n'est exigée.
+
+    Version naïve
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{n}\PY{o}{=}\PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Donner le nombre de valeurs de la série}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{0}
+        \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+            \PY{n}{val}\PY{o}{=}\PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Valeur ?}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{s}\PY{o}{=}\PY{n}{s}\PY{o}{+}\PY{n}{val}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{s}\PY{o}{/}\PY{n}{n}\PY{p}{)}
+\end{Verbatim}
+
+    Programmer une version avec une liste. On pourra utiliser certaines des
+commandes suivantes :
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}ne pas hésiter à modifier certaines des valeurs suivantes :}
+        \PY{n}{l}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{]} 
+        \PY{n}{n}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{l}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{l}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{l}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{l}\PY{p}{[}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{moy}\PY{p}{(}\PY{n}{l}\PY{p}{)}\PY{p}{:}\PY{c+c1}{\PYZsh{}reçoit une liste en paramètre et retourne sa moyenne}
+            \PY{k}{return} \PY{l+m+mi}{0}
+\end{Verbatim}
+
+    \begin{verbatim}
+Écrire des fonctions renvoyant le résultat numérique d’une expérience aléatoire, d’une répétition d’expériences aléatoires indépendantes.
+</div>
+\end{verbatim}
+
+    A partir des commandes suivantes, concevoir une fonction, de parmètre
+\(n\), qui retourne une liste de \(n\) entiers aléatoires compris entre
+0 et 100
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{from} \PY{n+nn}{random} \PY{k}{import} \PY{o}{*} \PY{c+c1}{\PYZsh{}\PYZsh{} inutile si librairie déjà présente}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{randrange}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{random}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{randrange}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{l}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{l}\PY{p}{)}
+        \PY{n}{l}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{l}\PY{p}{)}
+        \PY{n}{l}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{l}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{ListeAlea100}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{l+m+mi}{0}
+\end{Verbatim}
+
+    Exercice : à partir de 1000 listes d'entiers aléatoires compris entre 0
+et 100, établir la liste des moyennes de chacune de ces listes.
+
+    \begin{quote}
+Pour aller plus loin : afficher l'histogramme de ces moyennes (voir le
+notebook sur Matplolib) fiche niveau 2
+\end{quote}
+
+    \hypertarget{classe-de-premiuxe8re}{%
+\subsection{Classe de première}\label{classe-de-premiuxe8re}}
+
+    L'enseignement de spécialité de mathématiques de classe de première vise
+la consolidation des notions de variable, d'instruction conditionnelle
+et de boucle ainsi que l'utilisation des fonctions.
+
+    La seule notion nouvelle est celle de liste qui trouve naturellement sa
+place dans de nombreuses parties du programme et aide à la compréhension
+de notions mathématiques telles que les suites numériques, les tableaux
+de valeurs, les séries statistiques\ldots{}
+
+    L'accent est mis sur la programmation modulaire qui permet de découper
+une tâche complexe en tâches plus simples.
+
+    \hypertarget{notion-de-liste}{%
+\subsubsection{Notion de liste}\label{notion-de-liste}}
+
+    La génération des listes en compréhension et en extension est mise en
+lien avec la notion d'ensemble. Les conditions apparaissant dans les
+listes définies en compréhension permettent de travailler la logique.
+Afin d'éviter des confusions, on se limite aux listes sans présenter
+d'autres types de collections.
+
+    \hypertarget{capacituxe9s-attendues}{%
+\subsubsection{Capacités attendues}\label{capacituxe9s-attendues}}
+
+    Générer une liste (en extension, par ajouts successifs ou en
+compréhension).
+
+    Modifier le programme suivant afin qu'il retourne la liste des entiers
+multiples de 3 ou de 5 compris entre 0 et 100
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{l}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{101}\PY{p}{)}\PY{p}{:}
+            \PY{n}{l}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{k}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{l}\PY{p}{)}
+\end{Verbatim}
+
+    Manipuler des éléments d'une liste (ajouter, supprimer\ldots{}) et leurs
+indices.
+
+    Modifier le programme ci-dessous afin qu'il retourne la liste \(li\)
+privée de ses éléments pairs.
+
+    On pourra utiliser certaines des commandes suivantes :
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{n}\PY{o}{=}\PY{l+m+mi}{5}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZpc{}}\PY{k}{3})
+        \PY{n}{l}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{]}
+        \PY{n}{l}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{l}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{li}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{978}\PY{p}{,} \PY{l+m+mi}{416}\PY{p}{,} \PY{l+m+mi}{473}\PY{p}{,} \PY{l+m+mi}{574}\PY{p}{,} \PY{l+m+mi}{300}\PY{p}{,} \PY{l+m+mi}{703}\PY{p}{,} \PY{l+m+mi}{888}\PY{p}{,} \PY{l+m+mi}{730}\PY{p}{,} \PY{l+m+mi}{615}\PY{p}{,} \PY{l+m+mi}{18}\PY{p}{,} \PY{l+m+mi}{888}\PY{p}{,} \PY{l+m+mi}{752}\PY{p}{,} \PY{l+m+mi}{174}\PY{p}{,} \PY{l+m+mi}{906}\PY{p}{,} \PY{l+m+mi}{127}\PY{p}{,} \PY{l+m+mi}{347}\PY{p}{,} \PY{l+m+mi}{588}\PY{p}{,} \PY{l+m+mi}{683}\PY{p}{,} \PY{l+m+mi}{86}\PY{p}{,} \PY{l+m+mi}{352}\PY{p}{,} \PY{l+m+mi}{286}\PY{p}{,} \PY{l+m+mi}{876}\PY{p}{,} \PY{l+m+mi}{926}\PY{p}{,} \PY{l+m+mi}{822}\PY{p}{,} \PY{l+m+mi}{848}\PY{p}{,} \PY{l+m+mi}{346}\PY{p}{,} \PY{l+m+mi}{184}\PY{p}{,} \PY{l+m+mi}{249}\PY{p}{,} \PY{l+m+mi}{438}\PY{p}{,} \PY{l+m+mi}{969}\PY{p}{,} \PY{l+m+mi}{970}\PY{p}{,} \PY{l+m+mi}{166}\PY{p}{,} \PY{l+m+mi}{515}\PY{p}{,} \PY{l+m+mi}{747}\PY{p}{,} \PY{l+m+mi}{93}\PY{p}{,} \PY{l+m+mi}{866}\PY{p}{,} \PY{l+m+mi}{599}\PY{p}{,} \PY{l+m+mi}{966}\PY{p}{,} \PY{l+m+mi}{907}\PY{p}{,} \PY{l+m+mi}{989}\PY{p}{,} \PY{l+m+mi}{872}\PY{p}{,} \PY{l+m+mi}{190}\PY{p}{,} \PY{l+m+mi}{909}\PY{p}{,} \PY{l+m+mi}{531}\PY{p}{,} \PY{l+m+mi}{768}\PY{p}{,} \PY{l+m+mi}{811}\PY{p}{,} \PY{l+m+mi}{258}\PY{p}{,} \PY{l+m+mi}{518}\PY{p}{,} \PY{l+m+mi}{340}\PY{p}{,} \PY{l+m+mi}{91}\PY{p}{,} \PY{l+m+mi}{517}\PY{p}{,} \PY{l+m+mi}{368}\PY{p}{,} \PY{l+m+mi}{796}\PY{p}{,} \PY{l+m+mi}{711}\PY{p}{,} \PY{l+m+mi}{835}\PY{p}{,} \PY{l+m+mi}{250}\PY{p}{,} \PY{l+m+mi}{420}\PY{p}{,} \PY{l+m+mi}{530}\PY{p}{,} \PY{l+m+mi}{639}\PY{p}{,} \PY{l+m+mi}{524}\PY{p}{,} \PY{l+m+mi}{756}\PY{p}{,} \PY{l+m+mi}{345}\PY{p}{,} \PY{l+m+mi}{917}\PY{p}{,} \PY{l+m+mi}{229}\PY{p}{,} \PY{l+m+mi}{469}\PY{p}{,} \PY{l+m+mi}{568}\PY{p}{,} \PY{l+m+mi}{873}\PY{p}{,} \PY{l+m+mi}{439}\PY{p}{,} \PY{l+m+mi}{952}\PY{p}{,} \PY{l+m+mi}{758}\PY{p}{,} \PY{l+m+mi}{904}\PY{p}{,} \PY{l+m+mi}{511}\PY{p}{,} \PY{l+m+mi}{956}\PY{p}{,} \PY{l+m+mi}{967}\PY{p}{,} \PY{l+m+mi}{852}\PY{p}{,} \PY{l+m+mi}{134}\PY{p}{,} \PY{l+m+mi}{461}\PY{p}{,} \PY{l+m+mi}{396}\PY{p}{,} \PY{l+m+mi}{868}\PY{p}{,} \PY{l+m+mi}{534}\PY{p}{,} \PY{l+m+mi}{351}\PY{p}{,} \PY{l+m+mi}{405}\PY{p}{,} \PY{l+m+mi}{573}\PY{p}{,} \PY{l+m+mi}{730}\PY{p}{,} \PY{l+m+mi}{432}\PY{p}{,} \PY{l+m+mi}{949}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{133}\PY{p}{,} \PY{l+m+mi}{867}\PY{p}{,} \PY{l+m+mi}{24}\PY{p}{,} \PY{l+m+mi}{456}\PY{p}{,} \PY{l+m+mi}{717}\PY{p}{,} \PY{l+m+mi}{153}\PY{p}{,} \PY{l+m+mi}{734}\PY{p}{,} \PY{l+m+mi}{209}\PY{p}{,} \PY{l+m+mi}{528}\PY{p}{,} \PY{l+m+mi}{545}\PY{p}{,} \PY{l+m+mi}{567}\PY{p}{,} \PY{l+m+mi}{26}\PY{p}{,} \PY{l+m+mi}{384}\PY{p}{,} \PY{l+m+mi}{374}\PY{p}{,} \PY{l+m+mi}{321}\PY{p}{,} \PY{l+m+mi}{874}\PY{p}{,} \PY{l+m+mi}{187}\PY{p}{,} \PY{l+m+mi}{314}\PY{p}{,} \PY{l+m+mi}{572}\PY{p}{,} \PY{l+m+mi}{388}\PY{p}{,} \PY{l+m+mi}{415}\PY{p}{,} \PY{l+m+mi}{514}\PY{p}{,} \PY{l+m+mi}{680}\PY{p}{,} \PY{l+m+mi}{676}\PY{p}{,} \PY{l+m+mi}{970}\PY{p}{,} \PY{l+m+mi}{806}\PY{p}{,} \PY{l+m+mi}{837}\PY{p}{,} \PY{l+m+mi}{757}\PY{p}{,} \PY{l+m+mi}{931}\PY{p}{,} \PY{l+m+mi}{829}\PY{p}{,} \PY{l+m+mi}{119}\PY{p}{,} \PY{l+m+mi}{226}\PY{p}{,} \PY{l+m+mi}{236}\PY{p}{,} \PY{l+m+mi}{513}\PY{p}{,} \PY{l+m+mi}{524}\PY{p}{,} \PY{l+m+mi}{696}\PY{p}{,} \PY{l+m+mi}{170}\PY{p}{,} \PY{l+m+mi}{378}\PY{p}{,} \PY{l+m+mi}{347}\PY{p}{,} \PY{l+m+mi}{361}\PY{p}{,} \PY{l+m+mi}{850}\PY{p}{,} \PY{l+m+mi}{253}\PY{p}{,} \PY{l+m+mi}{743}\PY{p}{,} \PY{l+m+mi}{436}\PY{p}{,} \PY{l+m+mi}{766}\PY{p}{,} \PY{l+m+mi}{363}\PY{p}{,} \PY{l+m+mi}{426}\PY{p}{,} \PY{l+m+mi}{443}\PY{p}{,} \PY{l+m+mi}{563}\PY{p}{,} \PY{l+m+mi}{29}\PY{p}{,} \PY{l+m+mi}{63}\PY{p}{,} \PY{l+m+mi}{180}\PY{p}{,} \PY{l+m+mi}{997}\PY{p}{,} \PY{l+m+mi}{449}\PY{p}{,} \PY{l+m+mi}{154}\PY{p}{,} \PY{l+m+mi}{87}\PY{p}{,} \PY{l+m+mi}{989}\PY{p}{,} \PY{l+m+mi}{342}\PY{p}{,} \PY{l+m+mi}{892}\PY{p}{,} \PY{l+m+mi}{534}\PY{p}{,} \PY{l+m+mi}{969}\PY{p}{,} \PY{l+m+mi}{79}\PY{p}{,} \PY{l+m+mi}{813}\PY{p}{,} \PY{l+m+mi}{819}\PY{p}{,} \PY{l+m+mi}{838}\PY{p}{,} \PY{l+m+mi}{486}\PY{p}{,} \PY{l+m+mi}{124}\PY{p}{,} \PY{l+m+mi}{292}\PY{p}{,} \PY{l+m+mi}{405}\PY{p}{,} \PY{l+m+mi}{686}\PY{p}{,} \PY{l+m+mi}{319}\PY{p}{,} \PY{l+m+mi}{405}\PY{p}{,} \PY{l+m+mi}{74}\PY{p}{,} \PY{l+m+mi}{507}\PY{p}{,} \PY{l+m+mi}{357}\PY{p}{,} \PY{l+m+mi}{669}\PY{p}{,} \PY{l+m+mi}{189}\PY{p}{,} \PY{l+m+mi}{695}\PY{p}{,} \PY{l+m+mi}{526}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{196}\PY{p}{,} \PY{l+m+mi}{483}\PY{p}{,} \PY{l+m+mi}{244}\PY{p}{,} \PY{l+m+mi}{109}\PY{p}{,} \PY{l+m+mi}{265}\PY{p}{,} \PY{l+m+mi}{567}\PY{p}{,} \PY{l+m+mi}{337}\PY{p}{,} \PY{l+m+mi}{469}\PY{p}{,} \PY{l+m+mi}{69}\PY{p}{,} \PY{l+m+mi}{465}\PY{p}{,} \PY{l+m+mi}{515}\PY{p}{,} \PY{l+m+mi}{573}\PY{p}{,} \PY{l+m+mi}{960}\PY{p}{,} \PY{l+m+mi}{880}\PY{p}{,} \PY{l+m+mi}{401}\PY{p}{,} \PY{l+m+mi}{76}\PY{p}{,} \PY{l+m+mi}{145}\PY{p}{,} \PY{l+m+mi}{892}\PY{p}{,} \PY{l+m+mi}{911}\PY{p}{,} \PY{l+m+mi}{975}\PY{p}{,} \PY{l+m+mi}{598}\PY{p}{,} \PY{l+m+mi}{121}\PY{p}{,} \PY{l+m+mi}{650}\PY{p}{,} \PY{l+m+mi}{484}\PY{p}{,} \PY{l+m+mi}{447}\PY{p}{,} \PY{l+m+mi}{189}\PY{p}{,} \PY{l+m+mi}{282}\PY{p}{,} \PY{l+m+mi}{941}\PY{p}{,} \PY{l+m+mi}{852}\PY{p}{,} \PY{l+m+mi}{854}\PY{p}{,} \PY{l+m+mi}{769}\PY{p}{,} \PY{l+m+mi}{936}\PY{p}{,} \PY{l+m+mi}{253}\PY{p}{,} \PY{l+m+mi}{877}\PY{p}{,} \PY{l+m+mi}{61}\PY{p}{,} \PY{l+m+mi}{889}\PY{p}{,} \PY{l+m+mi}{208}\PY{p}{,} \PY{l+m+mi}{188}\PY{p}{,} \PY{l+m+mi}{259}\PY{p}{,} \PY{l+m+mi}{661}\PY{p}{,} \PY{l+m+mi}{233}\PY{p}{,} \PY{l+m+mi}{33}\PY{p}{,} \PY{l+m+mi}{244}\PY{p}{,} \PY{l+m+mi}{958}\PY{p}{,} \PY{l+m+mi}{194}\PY{p}{,} \PY{l+m+mi}{603}\PY{p}{,} \PY{l+m+mi}{852}\PY{p}{,} \PY{l+m+mi}{143}\PY{p}{,} \PY{l+m+mi}{34}\PY{p}{,} \PY{l+m+mi}{218}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{640}\PY{p}{,} \PY{l+m+mi}{25}\PY{p}{,} \PY{l+m+mi}{881}\PY{p}{,} \PY{l+m+mi}{662}\PY{p}{,} \PY{l+m+mi}{499}\PY{p}{,} \PY{l+m+mi}{735}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{974}\PY{p}{,} \PY{l+m+mi}{301}\PY{p}{,} \PY{l+m+mi}{906}\PY{p}{,} \PY{l+m+mi}{443}\PY{p}{,} \PY{l+m+mi}{654}\PY{p}{,} \PY{l+m+mi}{945}\PY{p}{,} \PY{l+m+mi}{254}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mi}{269}\PY{p}{,} \PY{l+m+mi}{546}\PY{p}{,} \PY{l+m+mi}{454}\PY{p}{,} \PY{l+m+mi}{697}\PY{p}{,} \PY{l+m+mi}{225}\PY{p}{,} \PY{l+m+mi}{470}\PY{p}{,} \PY{l+m+mi}{905}\PY{p}{,} \PY{l+m+mi}{785}\PY{p}{,} \PY{l+m+mi}{429}\PY{p}{,} \PY{l+m+mi}{791}\PY{p}{,} \PY{l+m+mi}{255}\PY{p}{,} \PY{l+m+mi}{934}\PY{p}{,} \PY{l+m+mi}{845}\PY{p}{,} \PY{l+m+mi}{456}\PY{p}{,} \PY{l+m+mi}{29}\PY{p}{,} \PY{l+m+mi}{439}\PY{p}{,} \PY{l+m+mi}{229}\PY{p}{]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{li}\PY{p}{)}
+\end{Verbatim}
+
+    Parcourir une liste.
+
+    Modifier le programme suivant afin qu'il retourne le plus grand élément
+de la iste \(l\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{from} \PY{n+nn}{random} \PY{k}{import} \PY{o}{*} \PY{c+c1}{\PYZsh{}\PYZsh{} inutile si librairie déjà présente}
+        
+        \PY{n}{l}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+        \PY{n}{n}\PY{o}{=}\PY{l+m+mi}{100}
+        \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+            \PY{n}{l}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{randrange}\PY{p}{(}\PY{l+m+mi}{500}\PY{p}{)}\PY{p}{)}
+        \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{n}{l}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{450}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{k}\PY{p}{,}\PY{n}{l}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    Itérer sur les éléments d'une liste.
+
+    Ecrire un programme qui la liste \(li\)
+
+exemple li={[}1,4,7,3{]} -\textgreater{} li={[}3,7,4,1{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{li}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{405}\PY{p}{,} \PY{l+m+mi}{686}\PY{p}{,} \PY{l+m+mi}{319}\PY{p}{,} \PY{l+m+mi}{405}\PY{p}{,} \PY{l+m+mi}{74}\PY{p}{,} \PY{l+m+mi}{507}\PY{p}{,} \PY{l+m+mi}{357}\PY{p}{,} \PY{l+m+mi}{669}\PY{p}{,} \PY{l+m+mi}{189}\PY{p}{,} \PY{l+m+mi}{695}\PY{p}{,} \PY{l+m+mi}{526}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{196}\PY{p}{,} \PY{l+m+mi}{483}\PY{p}{,} \PY{l+m+mi}{244}\PY{p}{,} \PY{l+m+mi}{109}\PY{p}{,} \PY{l+m+mi}{265}\PY{p}{,} \PY{l+m+mi}{567}\PY{p}{,} \PY{l+m+mi}{337}\PY{p}{,} \PY{l+m+mi}{469}\PY{p}{,} \PY{l+m+mi}{69}\PY{p}{,} \PY{l+m+mi}{465}\PY{p}{,} \PY{l+m+mi}{515}\PY{p}{,} \PY{l+m+mi}{573}\PY{p}{,} \PY{l+m+mi}{960}\PY{p}{,} \PY{l+m+mi}{880}\PY{p}{,} \PY{l+m+mi}{401}\PY{p}{,} \PY{l+m+mi}{76}\PY{p}{,} \PY{l+m+mi}{145}\PY{p}{,} \PY{l+m+mi}{892}\PY{p}{,} \PY{l+m+mi}{911}\PY{p}{,} \PY{l+m+mi}{975}\PY{p}{,} \PY{l+m+mi}{598}\PY{p}{,} \PY{l+m+mi}{121}\PY{p}{,} \PY{l+m+mi}{650}\PY{p}{,} \PY{l+m+mi}{484}\PY{p}{,} \PY{l+m+mi}{447}\PY{p}{,} \PY{l+m+mi}{189}\PY{p}{,} \PY{l+m+mi}{282}\PY{p}{,} \PY{l+m+mi}{941}\PY{p}{,} \PY{l+m+mi}{852}\PY{p}{,} \PY{l+m+mi}{854}\PY{p}{,} \PY{l+m+mi}{769}\PY{p}{,} \PY{l+m+mi}{936}\PY{p}{]}
+\end{Verbatim}
+
+    Exercice :
+
+\begin{itemize}
+\tightlist
+\item
+  exécuter le programme ci-dessous;
+\item
+  interpréter le résultat obtenu;
+\item
+  expliquer\ldots{}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{from} \PY{n+nn}{random} \PY{k}{import} \PY{o}{*} \PY{c+c1}{\PYZsh{}\PYZsh{} inutile si librairie déjà présente}
+        \PY{n}{l}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}
+            \PY{n}{l}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{randrange}\PY{p}{(}\PY{l+m+mi}{500}\PY{p}{)}\PY{p}{)}
+        \PY{n}{lc}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{500}\PY{p}{)}\PY{p}{:}
+            \PY{n}{lc}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}
+            \PY{n}{p}\PY{o}{=}\PY{n}{l}\PY{p}{[}\PY{n}{k}\PY{p}{]}
+            \PY{n}{lc}\PY{p}{[}\PY{n}{p}\PY{p}{]}\PY{o}{=}\PY{n}{lc}\PY{p}{[}\PY{n}{p}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{1}
+        \PY{n}{lt}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{500}\PY{p}{)}\PY{p}{:}
+            \PY{n}{n}\PY{o}{=}\PY{n}{lc}\PY{p}{[}\PY{n}{k}\PY{p}{]}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                \PY{n}{lt}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{k}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{l}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{lt}\PY{p}{)}
+\end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
